@@ -19,6 +19,16 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
 
+        if(move.magnitude > 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 3f
+            );
+        }
+
         characterController.Move(move * Time.deltaTime);
     }
 }
